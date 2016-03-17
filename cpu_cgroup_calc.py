@@ -32,7 +32,7 @@ def share_to_percent(share_list):
     for share in share_list:
         print("group with ",
               share,
-              " cpu.shares have ",
+              " 'cpu.shares' have ",
               round((share / total_share) * 100),
               "% of CPU shares", sep='')
 
