@@ -22,16 +22,16 @@ Compute cpu.shares values from a list of CPU %, and the reverse.
 ## Sample outputs
 
 	$ ./cpu_cgroup_calc.py -p2s 50 30 15 5
-	group with 50% of CPU shares should be setup with a 'cpu.shares' of 1024
-	group with 30% of CPU shares should be setup with a 'cpu.shares' of 614
-	group with 15% of CPU shares should be setup with a 'cpu.shares' of 307
-	group with 5% of CPU shares should be setup with a 'cpu.shares' of 102
+	group with  50% of CPU shares should be setup with a 'cpu.shares' of 1024
+	group with  30% of CPU shares should be setup with a 'cpu.shares' of  614
+	group with  15% of CPU shares should be setup with a 'cpu.shares' of  307
+	group with   5% of CPU shares should be setup with a 'cpu.shares' of  102
 
 	$ ./cpu_cgroup_calc.py -s2p 1024 614 307 102
-	group with 1024 cpu.shares have 50% of CPU shares
-	group with 614 cpu.shares have 30% of CPU shares
-	group with 307 cpu.shares have 15% of CPU shares
-	group with 102 cpu.shares have 5% of CPU shares
+	group with 1024 'cpu.shares' have  50% of CPU shares
+	group with  614 'cpu.shares' have  30% of CPU shares
+	group with  307 'cpu.shares' have  15% of CPU shares
+	group with  102 'cpu.shares' have   5% of CPU shares
 
 ## About cgroups
 

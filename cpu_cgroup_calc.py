@@ -21,9 +21,9 @@ def percent_to_share(percent_list):
     one_percent_cpu_share = 1024 / percent_list[0]
     for share_percent in percent_list:
         print("group with ",
-              share_percent,
+              repr(share_percent).rjust(3),
               "% of CPU shares should be setup with a 'cpu.shares' of ",
-              int(share_percent * one_percent_cpu_share), sep='')
+              repr(int(share_percent * one_percent_cpu_share)).rjust(4), sep='')
 
 def share_to_percent(share_list):
     share_list = [share for share in share_list if share != 0]
@@ -31,9 +31,9 @@ def share_to_percent(share_list):
     share_list.sort(reverse=True)
     for share in share_list:
         print("group with ",
-              share,
+              repr(share).rjust(4),
               " 'cpu.shares' have ",
-              round((share / total_share) * 100),
+              repr(round((share / total_share) * 100)).rjust(3),
               "% of CPU shares", sep='')
 
 def main():
