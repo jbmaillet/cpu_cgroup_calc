@@ -8,33 +8,28 @@ def percent_to_share(percent_list):
     total_percent = sum(percent_list)
     if total_percent < 100:
         added_group_share_percent = 100 - total_percent
-        print("adding a group with ",
-              added_group_share_percent,
-              "% of shares to reach mandatory 100%", sep='')
+        print("Adding a group with {0}% of shares to reach mandatory 100%..."
+              .format(added_group_share_percent))
         percent_list.append(added_group_share_percent)
     elif total_percent > 100:
-        print("total is ",
-              total_percent,
-              "% cpu shares - reconsider your figures, we only have 100% CPU at best!", sep='')
+        print("Total is {0}% cpu shares - reconsider your figures, we only have 100% CPU at best!"
+              .format(total_percent))
         sys.exit(1) # TODO a cleaner way to do this
     percent_list.sort(reverse=True)
     one_percent_cpu_share = 1024 / percent_list[0]
     for share_percent in percent_list:
-        print("group with ",
-              repr(share_percent).rjust(3),
-              "% of CPU shares should be setup with a 'cpu.shares' of ",
-              repr(int(share_percent * one_percent_cpu_share)).rjust(4), sep='')
+        print("Group with {0:3d}% of CPU shares should be setup with a 'cpu.shares' of {1:4d}"
+              .format(share_percent,
+                      int(share_percent * one_percent_cpu_share)))
 
 def share_to_percent(share_list):
     share_list = [share for share in share_list if share != 0]
     total_share = sum(share_list)
     share_list.sort(reverse=True)
     for share in share_list:
-        print("group with ",
-              repr(share).rjust(4),
-              " 'cpu.shares' have ",
-              repr(round((share / total_share) * 100)).rjust(3),
-              "% of CPU shares", sep='')
+        print("group with {0:4d} 'cpu.shares' have {1:3d}% of CPU shares"
+              .format(share,
+                      round((share / total_share) * 100)))
 
 def main():
     parser = argparse.ArgumentParser(description="Compute cpu.shares values from a list of CPU %, and the reverse.")
