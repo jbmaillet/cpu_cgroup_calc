@@ -4,7 +4,6 @@ import sys
 import argparse
 
 def percent_to_share(percent_list):
-    percent_list = [percent for percent in percent_list if percent != 0]
     total_percent = sum(percent_list)
     if total_percent < 100:
         added_group_share_percent = 100 - total_percent
@@ -14,7 +13,7 @@ def percent_to_share(percent_list):
     elif total_percent > 100:
         print("Total is {0}% cpu shares - reconsider your figures, we only have 100% CPU at best!"
               .format(total_percent))
-        sys.exit(1) # TODO a cleaner way to do this
+        sys.exit(1)
     percent_list.sort(reverse=True)
     one_percent_cpu_share = 1024 / percent_list[0]
     for share_percent in percent_list:
@@ -23,7 +22,6 @@ def percent_to_share(percent_list):
                       int(share_percent * one_percent_cpu_share)))
 
 def share_to_percent(share_list):
-    share_list = [share for share in share_list if share != 0]
     total_share = sum(share_list)
     share_list.sort(reverse=True)
     for share in share_list:
@@ -31,17 +29,31 @@ def share_to_percent(share_list):
               .format(share,
                       round((share / total_share) * 100)))
 
+def strictly_positive_integer(value):
+    error_msg = "'%s' is not a positive integer value" % value
+    try:
+        ivalue = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError(error_msg)
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError(error_msg)
+    return ivalue
+
 def main():
-    parser = argparse.ArgumentParser(description="Compute cpu.shares values from a list of CPU %, and the reverse.")
+    parser = argparse.ArgumentParser(description="Compute cgroup cpu.shares values from a list of CPU %, and the reverse.")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-p2s",
                        "--percent_to_share",
                        help="from CPU %% to cpu.shares",
-                       metavar='percent', type=int, nargs='+')
+                       metavar='percent',
+                       type=strictly_positive_integer,
+                       nargs='+')
     group.add_argument("-s2p",
                        "--share_to_percent",
                        help="from cpu.shares to CPU %%",
-                       metavar='share', type=int, nargs='+')
+                       metavar='share',
+                       type=strictly_positive_integer,
+                       nargs='+')
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
