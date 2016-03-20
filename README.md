@@ -2,7 +2,7 @@
 
 A small Python utility for Linux cpu cgroup controller:
 
-Compute cpu.shares values from a list of CPU %, and the reverse.
+Compute cgroup cpu.shares values from a list of CPU %, and the reverse.
 
 ## Usage
 
@@ -10,7 +10,7 @@ Compute cpu.shares values from a list of CPU %, and the reverse.
 	usage: cpu_cgroup_calc.py [-h] [-p2s percent [percent ...] | -s2p share
 	                          [share ...]]
 	
-	Compute cpu.shares values from a list of CPU %, and the reverse.
+	Compute cgroup cpu.shares values from a list of CPU %, and the reverse.
 	
 	optional arguments:
 	  -h, --help            show this help message and exit
